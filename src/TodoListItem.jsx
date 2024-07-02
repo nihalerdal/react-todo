@@ -1,4 +1,3 @@
-
 function TodoListItem(props) {
   return (
     <li>
