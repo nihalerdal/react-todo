@@ -1,4 +1,3 @@
-import * as React from "react";
 import TodoListItem from "./TodoListItem";
 
 const todoList = [
