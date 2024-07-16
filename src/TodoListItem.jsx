@@ -1,8 +1,8 @@
-function TodoListItem(props) {
-    console.log(props.todo.title)
+function TodoListItem({todo}) {
+    console.log(todo.title)
   return (
     <li>
-      <span>{props.todo.title}</span>
+      <span>{todo.title}</span>
     </li>
   );
 }
