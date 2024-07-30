@@ -23,6 +23,7 @@ function AddTodoForm({ onAddTodo }) {
         <InputWithLabel
           todoTitle={todoTitle}
           handleTitleChange={handleTitleChange}
+          autoFocus
         >
           Title:
         </InputWithLabel>

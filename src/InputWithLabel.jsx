@@ -4,6 +4,7 @@ function InputWithLabel({
   children,
   todoTitle,
   handleTitleChange,
+  autoFocus,
 }) {
   return (
     <>
@@ -13,6 +14,7 @@ function InputWithLabel({
         type={type}
         value={todoTitle}
         onChange={handleTitleChange}
+        autoFocus={autoFocus}
       />
     </>
   );
