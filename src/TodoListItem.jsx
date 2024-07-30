@@ -1,8 +1,11 @@
-function TodoListItem({todo}) {
-    console.log(todo.title)
+function TodoListItem({ title, onRemoveTodo , id }) {
+  console.log(title);
   return (
     <li>
-      <span>{todo.title}</span>
+      <span>{title}</span>
+      <button type="button" onClick={() => onRemoveTodo(id)}>
+        Remove
+      </button>
     </li>
   );
 }

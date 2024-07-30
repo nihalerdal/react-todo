@@ -21,11 +21,16 @@ function App() {
     setTodoList([...todoList, newTodo]); //spread operator to add new todo to list
   };
 
+  const removeTodo = (id) => {
+    const newList = todoList.filter((todo) => id !== todo.id);
+    setTodoList(newList)
+  };
+
   return (
     <>
       <h1>Todo List</h1>
       <AddTodoForm onAddTodo={addTodo} />
-      <TodoList todoList={todoList} /> {/*render todo list*/}
+      <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
     </>
   );
 }

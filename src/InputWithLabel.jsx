@@ -8,6 +8,7 @@ function InputWithLabel({
   handleTitleChange,
 }) {
   const inputRef = React.useRef();
+  console.log(inputRef.current)
 
   React.useEffect(() => {
     inputRef.current.focus();
