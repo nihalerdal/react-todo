@@ -1,4 +1,4 @@
-function TodoListItem({ title, onRemoveTodo , id }) {
+function TodoListItem({ title, onRemoveTodo, id }) {
   console.log(title);
   return (
     <li>

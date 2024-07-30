@@ -1,12 +1,7 @@
 import React from "react";
 
-function InputWithLabel({
-  id,
-  type = "text",
-  children,
-  todoTitle,
-  handleTitleChange,
-}) {
+function InputWithLabel(props) {
+
   const inputRef = React.useRef();
   console.log(inputRef.current)
 
@@ -16,13 +11,13 @@ function InputWithLabel({
 
   return (
     <>
-      <label htmlFor={id}>{children}</label>
+      <label htmlFor="todoTitle">{props.children}</label>
       <input
         ref={inputRef}
-        id={id}
-        type={type}
-        value={todoTitle}
-        onChange={handleTitleChange}
+        id="todoTitle"
+        type="text"
+        value={props.todoTitle}
+        onChange={props.handleTitleChange}
       />
     </>
   );
