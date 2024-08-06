@@ -4,6 +4,7 @@ import AddTodoForm from "./AddTodoForm"; //Import AddTodoForm component
 
 function App() {
   const [todoList, setTodoList] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(true)
 
   React.useEffect(() => {
     new Promise((resolve, reject) => {
@@ -17,12 +18,18 @@ function App() {
     }).then((result) => {
       console.log("Fetched todo list:", result.data.todoList);
       setTodoList(result.data.todoList);
+      setIsLoading(false);
     });
   }, []);
 
   React.useEffect(() => {
+    {/*early return to not run the code
+    if isLoading {
+      return;
+    }*/}
+if (!isLoading){
     localStorage.setItem("savedTodoList", JSON.stringify(todoList));
-  }, [todoList]);
+}}, [todoList, isLoading]);
 
   const addTodo = (newTodo) => {
     setTodoList([...todoList, newTodo]); //spread operator to add new todo to list
