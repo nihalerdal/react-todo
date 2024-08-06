@@ -3,7 +3,6 @@ import React from "react";
 function InputWithLabel(props) {
 
   const inputRef = React.useRef();
-  console.log(inputRef.current)
 
   React.useEffect(() => {
     inputRef.current.focus();
