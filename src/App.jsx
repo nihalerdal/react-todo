@@ -4,32 +4,54 @@ import AddTodoForm from "./AddTodoForm"; //Import AddTodoForm component
 
 function App() {
   const [todoList, setTodoList] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true)
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  async function fetchData() {
+    const url = `https://api.airtable.com/v0/${
+      import.meta.env.VITE_AIRTABLE_BASE_ID
+    }/${import.meta.env.VITE_TABLE_NAME}`;
+
+    const options = {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
+      },
+    };
+
+    try {
+      const response = await fetch(url, options);
+
+      if (!response.ok) {
+        const message = `Error: ${response.status}`;
+        throw new Error(message);
+      }
+
+      const data = await response.json();
+
+      const todos = data.records.map((todo) => {
+        return {
+          id: todo.id,
+          title: todo.fields.title,
+        };
+      });
+
+      setTodoList(todos);
+      setIsLoading(false);
+      
+    } catch (error) {
+      console.log("Fetch error:", error.message);
+    }
+  }
 
   React.useEffect(() => {
-    new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve({
-          data: {
-            todoList: JSON.parse(localStorage.getItem("savedTodoList")) || [],
-          },
-        });
-      }, 2000);
-    }).then((result) => {
-      console.log("Fetched todo list:", result.data.todoList);
-      setTodoList(result.data.todoList);
-      setIsLoading(false);
-    });
+    fetchData();
   }, []);
 
   React.useEffect(() => {
-    {/*early return to not run the code
-    if isLoading {
-      return;
-    }*/}
-if (!isLoading){
-    localStorage.setItem("savedTodoList", JSON.stringify(todoList));
-}}, [todoList, isLoading]);
+    if (!isLoading) {
+      localStorage.setItem("savedTodoList", JSON.stringify(todoList));
+    }
+  }, [todoList, isLoading]);
 
   const addTodo = (newTodo) => {
     setTodoList([...todoList, newTodo]); //spread operator to add new todo to list
@@ -44,8 +66,11 @@ if (!isLoading){
     <>
       <h1>Todo List</h1>
       <AddTodoForm onAddTodo={addTodo} />
-      {isLoading ? (<p>"Loading..."</p>) : 
-      (<TodoList todoList={todoList} onRemoveTodo={removeTodo}/>)}
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
+      )}
     </>
   );
 }
