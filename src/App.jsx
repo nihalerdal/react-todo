@@ -37,9 +37,9 @@ function App() {
 
       setTodoList(todos);
       setIsLoading(false);
-      
     } catch (error) {
       console.log("Fetch error:", error.message);
+      return null
     }
   }
 
@@ -47,32 +47,66 @@ function App() {
     fetchData();
   }, []);
 
-  React.useEffect(() => {
-    if (!isLoading) {
-      localStorage.setItem("savedTodoList", JSON.stringify(todoList));
+  async function addTodo(newTodoTitle) {
+
+    const url = `https://api.airtable.com/v0/${
+      import.meta.env.VITE_AIRTABLE_BASE_ID
+    }/${import.meta.env.VITE_TABLE_NAME}`;
+
+    const options = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        records: [
+          {
+            fields: {
+              title: newTodoTitle,
+            },
+          },
+        ],
+      }),
+    };
+    
+    try {
+      const response = await fetch(url, options);
+      
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+
+      const data = await response.json();
+  
+      const newTodo = {
+        id: data.records[0].id,
+        title: data.records[0].fields.title,
+      };
+
+      setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
+    } catch (error) {
+      console.log(error.message);
+      return null                          
     }
-  }, [todoList, isLoading]);
+  }
 
-  const addTodo = (newTodo) => {
-    setTodoList([...todoList, newTodo]); //spread operator to add new todo to list
-  };
-
-  const removeTodo = (id) => {
-    const newList = todoList.filter((todo) => id !== todo.id);
-    setTodoList(newList);
-  };
-
-  return (
-    <>
-      <h1>Todo List</h1>
-      <AddTodoForm onAddTodo={addTodo} />
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
-      )}
-    </>
-  );
-}
-
+    const removeTodo = (id) => {
+      const newList = todoList.filter((todo) => id !== todo.id);
+      setTodoList(newList);
+    };
+  
+    return (
+      <>
+        <h1>Todo List</h1>
+        <AddTodoForm onAddTodo={addTodo} />
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
+        )}
+      </>
+    );
+  }
+  
 export default App;
