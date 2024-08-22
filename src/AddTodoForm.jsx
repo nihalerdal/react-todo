@@ -6,13 +6,12 @@ function AddTodoForm({ onAddTodo }) {
 
   const handleTitleChange = (event) => {
     const newTodoTitle = event.target.value;
-    console.log(newTodoTitle);
     setTodoTitle(newTodoTitle);
   };
 
   const handleAddTodo = (event) => {
-    console.log(todoTitle);
-    onAddTodo(todoTitle );
+    event.preventDefault();
+    onAddTodo(todoTitle);
     setTodoTitle("");
   };
 
