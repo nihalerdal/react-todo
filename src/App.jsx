@@ -1,8 +1,35 @@
 import * as React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import TodoList from "./TodoList"; 
 import AddTodoForm from "./AddTodoForm"; 
 import styles from "./TodoListItem.module.css";
+
+function Navigation() {
+  return (
+    <nav className={styles.navContainer}>
+      <NavLink
+        to="/"
+        className={({ isActive }) =>
+          isActive
+            ? `${styles.navItem} ${styles.activeNavItem}`
+            : styles.navItem
+        }
+      >
+        Home
+      </NavLink>
+      <NavLink
+        to="/new"
+        className={({ isActive }) =>
+          isActive
+            ? `${styles.navItem} ${styles.activeNavItem}`
+            : styles.navItem
+        }
+      >
+        New Todo
+      </NavLink>
+    </nav>
+  );
+}
 
 function App() {
   const [todoList, setTodoList] = React.useState([]);
@@ -130,6 +157,7 @@ function App() {
 
     return (
       <BrowserRouter>
+        <Navigation />
         <Routes>
           <Route
             path="/"

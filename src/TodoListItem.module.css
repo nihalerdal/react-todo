@@ -1,16 +1,43 @@
 .item{
-    color: orangered
+    color: orangered;
 }
 
 .body{
-    background-color: rgb(207, 174, 112)
+    background-color: rgb(207, 174, 112);
 }
 
 .defaultTextColor{
-    color: white
+    color: white;
 }
 
 .font{
     font-family:'Roboto', sans-serif;
 ;
+}
+
+.navContainer {
+  display: flex;
+  justify-content: space-around;
+  background-color: rgb(207, 174, 112);
+  padding: 1rem;
+}
+
+.navItem {
+  color: orangered;
+  text-decoration: none;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.navItem:hover {
+  color: #ffffff;
+}
+
+
+.activeNavItem {
+  background-color: #ff6347; 
+  color: #ffffff; 
+  font-weight: bold; 
 }
