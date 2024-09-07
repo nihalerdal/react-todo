@@ -1,7 +1,8 @@
 import * as React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import TodoList from "./TodoList"; //Import TodoList component
-import AddTodoForm from "./AddTodoForm"; //Import AddTodoForm component
+import TodoList from "./TodoList"; 
+import AddTodoForm from "./AddTodoForm"; 
+import styles from "./TodoListItem.module.css";
 
 function App() {
   const [todoList, setTodoList] = React.useState([]);
@@ -125,18 +126,15 @@ function App() {
     }
   }
 
-    // const removeTodo = (id) => {
-    //   const newList = todoList.filter((todo) => id !== todo.id);
-    //   setTodoList(newList);
-    // };
-  
+ document.body.classList.add(styles.body);
+
     return (
       <BrowserRouter>
         <Routes>
           <Route
             path="/"
             element={
-              <>
+              <div className={`${styles.defaultTextColor} ${styles.font}`}>
                 <h1>Todo List</h1>
                 <AddTodoForm onAddTodo={addTodo} />
                 {isLoading ? (
@@ -144,7 +142,7 @@ function App() {
                 ) : (
                   <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
                 )}
-              </>
+              </div>
             }
           />
           <Route path="/new" element={<h1>New Todo List</h1>} />

@@ -1,0 +1,16 @@
+.item{
+    color: orangered
+}
+
+.body{
+    background-color: rgb(207, 174, 112)
+}
+
+.defaultTextColor{
+    color: white
+}
+
+.font{
+    font-family:'Roboto', sans-serif;
+;
+}
