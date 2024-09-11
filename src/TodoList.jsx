@@ -1,9 +1,9 @@
 import TodoListItem from "./TodoListItem";
+import styles from "./TodoList.module.css";
 
 function TodoList({ todoList, onRemoveTodo }) {
   return (
-    <div>
-      <ul>
+      <ul className={styles.todoList} style={{listStyleType:"none"}}>
         {todoList.map((todo) => (
           <TodoListItem 
           key={todo.id} 
@@ -13,7 +13,6 @@ function TodoList({ todoList, onRemoveTodo }) {
           />
         ))}
       </ul>
-    </div>
   );
 }
 

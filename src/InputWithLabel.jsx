@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./InputWithLabel.module.css";
 
 function InputWithLabel(props) {
 
@@ -10,8 +11,11 @@ function InputWithLabel(props) {
 
   return (
     <>
-      <label htmlFor="todoTitle">{props.children}</label>
+      <label className={styles.titleLabel} htmlFor="todoTitle">
+        {props.children}
+      </label>
       <input
+        className={styles.inputBox}
         ref={inputRef}
         id="todoTitle"
         type="text"

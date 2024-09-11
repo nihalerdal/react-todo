@@ -2,7 +2,7 @@ import * as React from "react";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import TodoList from "./TodoList"; 
 import AddTodoForm from "./AddTodoForm"; 
-import styles from "./TodoListItem.module.css";
+import styles from "./App.module.css"
 
 function Navigation() {
   return (
@@ -156,26 +156,42 @@ function App() {
  document.body.classList.add(styles.body);
 
     return (
-      <BrowserRouter>
-        <Navigation />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <div className={`${styles.defaultTextColor} ${styles.font}`}>
-                <h1>Todo List</h1>
-                <AddTodoForm onAddTodo={addTodo} />
-                {isLoading ? (
-                  <p>Loading...</p>
-                ) : (
-                  <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
-                )}
-              </div>
-            }
-          />
-          <Route path="/new" element={<h1>New Todo List</h1>} />
-        </Routes>
-      </BrowserRouter>
+      <main className={styles.main}>
+        <section className={styles.section}>
+          <BrowserRouter>
+            <Navigation />
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <div className={styles.headerAndList}>
+                    <h1 className={styles.header}>TODO LIST</h1>
+                    <div className={styles.formAndList}>
+                      <AddTodoForm onAddTodo={addTodo} />
+                      {isLoading ? (
+                        <p>Loading...</p>
+                      ) : (
+                        <TodoList
+                          todoList={todoList}
+                          onRemoveTodo={removeTodo}
+                        />
+                      )}
+                    </div>
+                  </div>
+                }
+              />
+              <Route
+                path="/new"
+                element={
+                  <div className={styles.newTodo}>
+                    <h1 className={styles.heading}>New Todo List</h1>
+                  </div>
+                }
+              />
+            </Routes>
+          </BrowserRouter>
+        </section>
+      </main>
     );
   }
   
