@@ -9,11 +9,18 @@
 }
 
 .addButton {
-  border-radius: 10px;
+  border-radius: 8px;
   border-color: transparent;
+  border: 0;
   width: auto;
   max-width: 90px;
   background-color: #7984e6;
+  cursor: pointer;
+  padding: 12px;
+  margin-right: 3px;
+  margin-left: 5px;
+  width: 25%;
+  font-weight: bold;
 }
 
   @media (max-width: 480px) {
