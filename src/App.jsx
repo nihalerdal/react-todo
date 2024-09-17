@@ -153,8 +153,6 @@ function App() {
     }
   }
 
- document.body.classList.add(styles.body);
-
     return (
       <main className={styles.main}>
         <section className={styles.section}>
