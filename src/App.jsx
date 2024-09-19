@@ -1,7 +1,7 @@
 import * as React from "react";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
-import TodoList from "./TodoList"; 
-import AddTodoForm from "./AddTodoForm"; 
+import TodoList from "./Components/TodoList";
+import AddTodoForm from "./Components/AddTodoForm";
 import styles from "./App.module.css"
 
 function Navigation() {
