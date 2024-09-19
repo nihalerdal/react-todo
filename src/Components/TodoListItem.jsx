@@ -1,5 +1,6 @@
-import styles from "./TodoListItem.module.css"
+import styles from "./TodoListItem.module.css";
 import { FaTrash } from "react-icons/fa";
+import PropTypes from "prop-types";
 
 function TodoListItem({ title, onRemoveTodo, id }) {
   return (
@@ -18,5 +19,11 @@ function TodoListItem({ title, onRemoveTodo, id }) {
     </li>
   );
 }
+
+TodoListItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  onRemoveTodo: PropTypes.func,
+  id: PropTypes.string.isRequired,
+};
 
 export default TodoListItem;
