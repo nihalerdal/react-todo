@@ -1,7 +1,7 @@
 import React from "react";
 import TodoList from "./TodoList";
 import AddTodoForm from "./AddTodoForm";
-import styles from "./TodoContainer.module.css"
+import styles from "./TodoContainer.module.css";
 
 function TodoContainer() {
   const [todoList, setTodoList] = React.useState([]);
@@ -11,9 +11,7 @@ function TodoContainer() {
   async function fetchData() {
     const url = `https://api.airtable.com/v0/${
       import.meta.env.VITE_AIRTABLE_BASE_ID
-    }/${
-      import.meta.env.VITE_TABLE_NAME
-    }?view=Grid%20view&sort[0][field]=title&sort[0][direction]=asc`;
+    }/${import.meta.env.VITE_TABLE_NAME}?view=Grid%20view`;
 
     const options = {
       method: "GET",
@@ -32,7 +30,20 @@ function TodoContainer() {
 
       const data = await response.json();
 
-      const todos = data.records.map((todo) => {
+      //sort records
+      const sortedTodos = data.records.sort((objectA, objectB) => {
+        const titleA = objectA.fields.title || "";
+        const titleB = objectB.fields.title || "";
+        if (titleA < titleB) {
+          return -1;
+        } else if (titleA > titleB) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
+      const todos = sortedTodos.map((todo) => {
         return {
           id: todo.id,
           title: todo.fields.title,
