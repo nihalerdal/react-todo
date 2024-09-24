@@ -32,15 +32,12 @@ function TodoContainer() {
 
       //sort records
       const sortedTodos = data.records.sort((objectA, objectB) => {
-        const titleA = objectA.fields.title || "";
-        const titleB = objectB.fields.title || "";
-        if (titleA < titleB) {
-          return -1;
-        } else if (titleA > titleB) {
-          return 1;
-        } else {
-          return 0;
-        }
+        const titleA = (objectA.fields.title || "").toLowerCase();
+        const titleB = (objectB.fields.title || "").toLowerCase();
+
+        if (titleA < titleB) return -1;
+        if (titleA > titleB) return 1;
+        return 0;
       });
 
       const todos = sortedTodos.map((todo) => {
