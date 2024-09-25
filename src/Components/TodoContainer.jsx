@@ -6,6 +6,7 @@ import styles from "./TodoContainer.module.css";
 function TodoContainer() {
   const [todoList, setTodoList] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
+  const [isAscending, setIsAscending] = React.useState(true);
 
   //Fetching data
   async function fetchData() {
@@ -30,17 +31,7 @@ function TodoContainer() {
 
       const data = await response.json();
 
-      //sort records
-      const sortedTodos = data.records.sort((objectA, objectB) => {
-        const titleA = (objectA.fields.title || "").toLowerCase();
-        const titleB = (objectB.fields.title || "").toLowerCase();
-
-        if (titleA < titleB) return -1;
-        if (titleA > titleB) return 1;
-        return 0;
-      });
-
-      const todos = sortedTodos.map((todo) => {
+      const todos = data.records.map((todo) => {
         return {
           id: todo.id,
           title: todo.fields.title,
@@ -54,6 +45,20 @@ function TodoContainer() {
       return null;
     }
   }
+  //sort records
+  const handleSort = () => {
+    const sortedTodos = [...todoList].sort((todoA, todoB) => {
+      const titleA = (todoA.title || "").toLowerCase();
+      const titleB = (todoB.title || "").toLowerCase();
+
+      if (titleA < titleB) return isAscending ? -1 : 1;
+      if (titleA > titleB) return isAscending ? 1 : -1;
+      return 0;
+    });
+
+    setTodoList(sortedTodos);
+    setIsAscending(!isAscending);
+  };
 
   // Fetch todos when the component mounts
   React.useEffect(() => {
@@ -138,11 +143,24 @@ function TodoContainer() {
     }
   }
 
+  //   function toggleSort() {
+  //     setIsAscending((prevIsAscending) => !prevIsAscending);
+  //   }
+
   return (
     <div className={styles.TodoContainer}>
       <h1 className={styles.header}>TODO LIST</h1>
       <div className={styles.formAndList}>
         <AddTodoForm onAddTodo={addTodo} />
+
+        {!isLoading && (
+          <div className={styles.buttonContainer}>
+            <button className={styles.toggleButton} onClick={handleSort}>
+              {isAscending ? "Z->A" : "A->Z"}
+            </button>
+          </div>
+        )}
+
         {isLoading ? (
           <p>Loading...</p>
         ) : (
