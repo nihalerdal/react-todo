@@ -4,16 +4,17 @@ import PropTypes from "prop-types";
 
 function TodoList({ todoList, onRemoveTodo }) {
   return (
-      <ul className={styles.todoList} style={{listStyleType:"none"}}>
-        {todoList.map((todo) => (
-          <TodoListItem 
-          key={todo.id} 
-          title={todo.title} 
-          onRemoveTodo={onRemoveTodo} 
+    <ul className={styles.todoList} style={{ listStyleType: "none" }}>
+      {todoList.map((todo) => (
+        <TodoListItem
+          key={todo.id}
+          title={todo.title}
+          createdTime={todo.createdTime}
+          onRemoveTodo={onRemoveTodo}
           id={todo.id}
-          />
-        ))}
-      </ul>
+        />
+      ))}
+    </ul>
   );
 }
 

@@ -6,7 +6,8 @@ import styles from "./TodoContainer.module.css";
 function TodoContainer() {
   const [todoList, setTodoList] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [isAscending, setIsAscending] = React.useState(true);
+  const [isAscending, setIsAscending] = React.useState(false);
+  const [isNewestFirst, setIsNewestFirst] = React.useState(false);
 
   //Fetching data
   async function fetchData() {
@@ -35,6 +36,7 @@ function TodoContainer() {
         return {
           id: todo.id,
           title: todo.fields.title,
+          createdTime: todo.createdTime,
         };
       });
 
@@ -46,18 +48,31 @@ function TodoContainer() {
     }
   }
   //sort records
-  const handleSort = () => {
+  const handleSortByTitle = () => {
+    
     const sortedTodos = [...todoList].sort((todoA, todoB) => {
       const titleA = (todoA.title || "").toLowerCase();
       const titleB = (todoB.title || "").toLowerCase();
 
-      if (titleA < titleB) return isAscending ? -1 : 1;
-      if (titleA > titleB) return isAscending ? 1 : -1;
+      if (titleA < titleB) return !isAscending ? -1 : 1;
+      if (titleA > titleB) return !isAscending ? 1 : -1;
       return 0;
     });
 
     setTodoList(sortedTodos);
     setIsAscending(!isAscending);
+  };
+
+  const handleSortByDate = () => {
+    const sortedTodos = [...todoList].sort((todoA, todoB) => {
+      const dateA = new Date(todoA.createdTime);
+      const dateB = new Date(todoB.createdTime);
+
+      return !isNewestFirst ? dateB - dateA : dateA - dateB;
+    });
+
+    setTodoList(sortedTodos);
+    setIsNewestFirst(!isNewestFirst);
   };
 
   // Fetch todos when the component mounts
@@ -82,6 +97,7 @@ function TodoContainer() {
           {
             fields: {
               title: newTodoTitle,
+              createdTime: new Date().toISOString(),
             },
           },
         ],
@@ -100,6 +116,7 @@ function TodoContainer() {
       const newTodo = {
         id: data.records[0].id,
         title: data.records[0].fields.title,
+        createdTime: data.records[0].fields.createdTime,
       };
 
       setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
@@ -143,10 +160,6 @@ function TodoContainer() {
     }
   }
 
-  //   function toggleSort() {
-  //     setIsAscending((prevIsAscending) => !prevIsAscending);
-  //   }
-
   return (
     <div className={styles.TodoContainer}>
       <h1 className={styles.header}>TODO LIST</h1>
@@ -155,8 +168,17 @@ function TodoContainer() {
 
         {!isLoading && (
           <div className={styles.buttonContainer}>
-            <button className={styles.toggleButton} onClick={handleSort}>
+            <button
+              className={styles.buttonSortByTitle}
+              onClick={handleSortByTitle}
+            >
               {isAscending ? "Z->A" : "A->Z"}
+            </button>
+            <button
+              className={styles.buttonSortByDate}
+              onClick={handleSortByDate}
+            >
+              {isNewestFirst ? "Show Oldest First" : "Show Newest First"}
             </button>
           </div>
         )}
