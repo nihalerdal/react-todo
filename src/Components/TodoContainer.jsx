@@ -49,14 +49,26 @@ function TodoContainer() {
   }
   //sort records
   const handleSortByTitle = () => {
-    
     const sortedTodos = [...todoList].sort((todoA, todoB) => {
-      const titleA = (todoA.title || "").toLowerCase();
-      const titleB = (todoB.title || "").toLowerCase();
+      const titleA = todoA.title || "";
+      const titleB = todoB.title || "";
 
-      if (titleA < titleB) return !isAscending ? -1 : 1;
-      if (titleA > titleB) return !isAscending ? 1 : -1;
-      return 0;
+      if (isNaN(titleA) && isNaN(titleB)) {
+         const titleALower = titleA.toLowerCase();
+         const titleBLower = titleB.toLowerCase();
+
+        if (titleALower < titleBLower) return !isAscending ? -1 : 1;
+        if (titleALower > titleBLower) return !isAscending ? 1 : -1;
+
+        return 0;
+
+      } else if (!isNaN(titleA) && !isNaN(titleB)) {
+
+        return !isAscending ? titleA - titleB : titleB - titleA;
+
+      } else {
+        return !isNaN(titleA) ? -1 :  1;
+      }
     });
 
     setTodoList(sortedTodos);
@@ -97,7 +109,7 @@ function TodoContainer() {
           {
             fields: {
               title: newTodoTitle,
-              createdTime: new Date().toISOString(),
+              createdTime: new Date(),
             },
           },
         ],
