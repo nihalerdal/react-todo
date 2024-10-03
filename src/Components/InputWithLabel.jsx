@@ -7,7 +7,7 @@ function InputWithLabel({ children, todoTitle, handleTitleChange }) {
 
   React.useEffect(() => {
     inputRef.current.focus();
-  });
+  }, []);
 
   return (
     <>
@@ -28,8 +28,8 @@ function InputWithLabel({ children, todoTitle, handleTitleChange }) {
 
 
 InputWithLabel.propTypes = {
-  children: PropTypes.node,
-  todoTitle: PropTypes.string,
-  handleTitleChange: PropTypes.func,
+  children: PropTypes.node.isRequired,
+  todoTitle: PropTypes.string.isRequired,
+  handleTitleChange: PropTypes.func.isRequired,
 };
 export default InputWithLabel;

@@ -1,4 +1,3 @@
-import * as React from "react";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import TodoContainer from "./Components/TodoContainer";
 import styles from "./App.module.css"
@@ -38,10 +37,7 @@ function App() {
           <BrowserRouter>
             <Navigation />
             <Routes>
-              <Route
-                path="/"
-                element= {<TodoContainer/>}
-              />
+              <Route path="/" element={<TodoContainer tableName="TODO LIST" />} />
               <Route
                 path="/new"
                 element={
