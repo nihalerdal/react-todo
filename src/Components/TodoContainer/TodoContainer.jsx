@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import TodoList from "./TodoList";
-import AddTodoForm from "./AddTodoForm";
+import TodoList from "../TodoList/TodoList";
+import AddTodoForm from "../AddTodoForm/AddTodoForm";
 import styles from "./TodoContainer.module.css";
 import PropTypes from "prop-types";
 
@@ -93,7 +93,7 @@ function TodoContainer({ tableName }) {
   async function addTodo(title) {
     const url = `https://api.airtable.com/v0/${
       import.meta.env.VITE_AIRTABLE_BASE_ID
-    }/${import.meta.env.VITE_TABLE_NAME}`;
+    }/${tableName}`;
 
     const options = {
       method: "POST",
@@ -139,7 +139,7 @@ function TodoContainer({ tableName }) {
   async function removeTodo(id) {
     const url = `https://api.airtable.com/v0/${
       import.meta.env.VITE_AIRTABLE_BASE_ID
-    }/${import.meta.env.VITE_TABLE_NAME}/${id}`;
+    }/${tableName}/${id}`;
 
     const options = {
       method: "DELETE",
@@ -170,8 +170,8 @@ function TodoContainer({ tableName }) {
   }
 
   return (
-    <div className={styles.TodoContainer}>
-      <h1 className={styles.header}>{tableName}</h1>
+    <div className={styles.todoContainer}>
+      {/* <h1 className={styles.header}>{tableName}</h1> */}
       <div className={styles.formAndList}>
         <AddTodoForm onAddTodo={addTodo} />
 

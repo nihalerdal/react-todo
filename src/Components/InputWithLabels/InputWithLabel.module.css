@@ -11,10 +11,10 @@
     margin-top: 8px;
     background-color: whitesmoke;
 }
-.titleLabel{
+/* .titleLabel{
     margin-right: 10px;
     font-size: 20px;
-}
+} */
 
 .inputBox:focus {
   outline: none; /* Remove the default outline */
@@ -22,7 +22,9 @@
   font-size: 20px;
 }
 
-
+.inputBox::placeholder{
+  font-size:small
+}
 @media (max-width: 480px) {
 
   .titleLabel{

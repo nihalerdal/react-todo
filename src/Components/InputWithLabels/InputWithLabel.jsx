@@ -11,9 +11,9 @@ function InputWithLabel({ children, todoTitle, handleTitleChange }) {
 
   return (
     <>
-      <label className={styles.titleLabel} htmlFor="todoTitle">
+      {/* <label className={styles.titleLabel} htmlFor="todoTitle">
         {children}
-      </label>
+      </label> */}
       <input
         className={styles.inputBox}
         ref={inputRef}
@@ -21,6 +21,7 @@ function InputWithLabel({ children, todoTitle, handleTitleChange }) {
         type="text"
         value={todoTitle}
         onChange={handleTitleChange}
+        placeholder="Type your task here (e.g., Schedule a meeting)"
       />
     </>
   );
