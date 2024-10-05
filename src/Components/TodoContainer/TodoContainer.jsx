@@ -9,6 +9,66 @@ function TodoContainer({ tableName }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isAscending, setIsAscending] = useState(false);
   const [isNewestFirst, setIsNewestFirst] = useState(false);
+  const [sortBy, setSortBy] = useState("createdTime"); 
+
+  const sortByTitle = (todos) => {
+    return [...todos].sort((a, b) => {
+      const titleA = a.title.toLowerCase() || "";
+      const titleB = b.title.toLowerCase() || "";
+
+      //If both are string, sort alphabetically
+      if (isNaN(titleA) && isNaN(titleB)) {
+        if (titleA < titleB) return isAscending ? -1 : 1;
+        if (titleA > titleB) return isAscending ? 1 : -1;
+
+        return 0;
+      }
+
+      // If both are numbers, sort numerically
+      else if (!isNaN(titleA) && !isNaN(titleB)) {
+        return isAscending ? titleA - titleB : titleB - titleA;
+      }
+
+      //If one is a number, number comes first
+      else {
+        return !isNaN(titleA) ? -1 : 1;
+      }
+    }); 
+  };
+
+  const sortByDate = (todos) => {
+    return [...todos].sort((a, b) => {
+      const dateA = new Date(a.createdTime);
+      const dateB = new Date(b.createdTime);
+
+      return isNewestFirst ? dateB - dateA : dateA - dateB;
+    });
+  };
+
+  function handleSort() {
+
+    let sortedTodos = [...todoList];
+
+    if (sortBy === "title") {
+       sortedTodos = sortByTitle(sortedTodos);
+       setIsAscending(!isAscending);  
+    } else if (sortBy === "createdTime") {
+      sortedTodos = sortByDate(sortedTodos);
+      setIsNewestFirst(!isNewestFirst);
+    }
+
+    setTodoList(sortedTodos);
+
+  }
+
+ const handleSortByChange = (event) => {
+   setSortBy(event.target.value);
+   handleSort();
+ };
+
+ useEffect(() => {
+    handleSort();
+ }, [sortBy]);
 
   //Fetching data
   const fetchData = useCallback(async () => {
@@ -51,43 +111,6 @@ function TodoContainer({ tableName }) {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
-
-  //sort records
-  const handleSortByTitle = () => {
-    const sortedTodos = [...todoList].sort((todoA, todoB) => {
-      const titleA = todoA.title || "";
-      const titleB = todoB.title || "";
-
-      if (isNaN(titleA) && isNaN(titleB)) {
-        const titleALower = titleA.toLowerCase();
-        const titleBLower = titleB.toLowerCase();
-
-        if (titleALower < titleBLower) return !isAscending ? -1 : 1;
-        if (titleALower > titleBLower) return !isAscending ? 1 : -1;
-
-        return 0;
-      } else if (!isNaN(titleA) && !isNaN(titleB)) {
-        return !isAscending ? titleA - titleB : titleB - titleA;
-      } else {
-        return !isNaN(titleA) ? -1 : 1;
-      }
-    });
-
-    setTodoList(sortedTodos);
-    setIsAscending(!isAscending);
-  };
-
-  const handleSortByDate = () => {
-    const sortedTodos = [...todoList].sort((todoA, todoB) => {
-      const dateA = new Date(todoA.createdTime);
-      const dateB = new Date(todoB.createdTime);
-
-      return !isNewestFirst ? dateB - dateA : dateA - dateB;
-    });
-
-    setTodoList(sortedTodos);
-    setIsNewestFirst(!isNewestFirst);
-  };
 
   //Add a new todo
   async function addTodo(title) {
@@ -177,17 +200,19 @@ function TodoContainer({ tableName }) {
 
         {!isLoading && (
           <div className={styles.buttonContainer}>
-            <button
-              className={styles.buttonSortByTitle}
-              onClick={handleSortByTitle}
+            <label htmlFor="sortBy">Sort By:</label>
+            <select
+              id="sortBy"
+              value={sortBy}
+              onChange={handleSortByChange}
+              className={styles.sortByButton}
             >
-              {isAscending ? "Z->A" : "A->Z"}
-            </button>
-            <button
-              className={styles.buttonSortByDate}
-              onClick={handleSortByDate}
-            >
-              {isNewestFirst ? "Show Oldest First" : "Show Newest First"}
+              <option value="title">Title</option>
+              <option value="createdTime">Created Time</option>
+              {/* {isAscending ? "Z->A" : "A->Z"} */}
+            </select>
+            <button className={styles.buttonSort} onClick={handleSort}>
+              {isAscending ? "Ascending" : "Descending"}
             </button>
           </div>
         )}
