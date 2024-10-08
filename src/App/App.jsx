@@ -7,7 +7,7 @@ function Navigation() {
   return (
     <nav className={styles.navContainer}>
       <NavLink
-        to="/home"
+        to="/"
         className={({ isActive }) =>
           isActive
             ? `${styles.navItem} ${styles.activeNavItem}`
@@ -33,23 +33,16 @@ function Navigation() {
 function App() {
   return (
     <main className={styles.main}>
-      {/* <section className={styles.section}> */}
+      <section className={styles.section}>
       <BrowserRouter>
         <Navigation />
         <Routes>
-          <Route path="/home" element={<Home />} />
-          <Route
-            path="/todo"
-            element={<TodoContainer tableName="TODO LIST" />}
-            // element={
-            //   <div className={styles.newTodo}>
-            //     <h1 className={styles.heading}>New Todo List</h1>
-            //   </div>
-            // }
+          <Route path="/" element={<Home />} />
+          <Route path="/todo" element={<TodoContainer tableName={import.meta.env.VITE_TABLE_NAME} />}
           />
         </Routes>
       </BrowserRouter>
-      {/* </section> */}
+      </section>
     </main>
   );
 }

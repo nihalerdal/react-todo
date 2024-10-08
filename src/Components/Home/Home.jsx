@@ -7,7 +7,7 @@ function Home() {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname === "/home") {
+    if (location.pathname === "/") {
       document.body.style.backgroundImage =
         "url('./pexels-shvets-production-9743075.jpg')";
       document.body.style.backgroundSize = "contain";

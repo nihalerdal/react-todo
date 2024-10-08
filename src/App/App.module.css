@@ -6,12 +6,12 @@
   justify-content: flex-start;
 }
 
-/* .section {
+.section {
   display: flex;
   flex-direction: column;
   margin: 0;
   min-width: 100%;
-} */
+}
 
 .navContainer {
   display: flex;

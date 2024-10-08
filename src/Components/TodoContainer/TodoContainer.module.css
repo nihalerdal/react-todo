@@ -2,16 +2,17 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-top: 7%;
 }
 
-/* .header {
+.header {
   font-size: 65px;
   color: #6f7083;
   display: flex;
   flex-direction: row;
   justify-content: center;
-} */
+  margin-top: auto;
+  margin-bottom: 1%;
+}
 
 .formAndList {
   display: flex;
@@ -25,23 +26,43 @@
   justify-content: space-between;
   width: 100%;
   max-width: 550px;
-  height: 40px;
+  height: 50px;
   margin-top: 4%;
 }
-.buttonSortByTitle {
-  width: 10%;
+
+.sortBySelectionButton {
+  width: 25%;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 0;
+  background-color:#7984e6;
+  height: 80%;
+  margin-left: 8px;
+  color: whitesmoke;
+  font-weight: bold;
+}
+
+.toggleButton {
+ width: 8%;
   cursor: pointer;
   border-radius: 8px;
   border: 0;
   background-color: #7984e6;
+  height: 60%;
+  margin-right: 3px;
+  padding: 10;
+  color: white;
+  font-size: x-small;
+}
+
+.sortBy{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 80%;
   height: 80%;
 }
-.buttonSortByDate {
-  width: 23%;
-  cursor: pointer;
-  border-radius: 8px;
-  border: 0;
-  background-color: #7984e6;
-  height: 80%;
-  margin-left: 5px;
+
+.sortByLabel{
+  font-weight:900;
 }

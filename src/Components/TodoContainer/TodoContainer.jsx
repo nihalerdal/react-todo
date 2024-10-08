@@ -2,13 +2,14 @@ import { useCallback, useEffect, useState } from "react";
 import TodoList from "../TodoList/TodoList";
 import AddTodoForm from "../AddTodoForm/AddTodoForm";
 import styles from "./TodoContainer.module.css";
+import { BiSortAlt2 } from "react-icons/bi";
 import PropTypes from "prop-types";
 
 function TodoContainer({ tableName }) {
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isAscending, setIsAscending] = useState(false);
-  const [isNewestFirst, setIsNewestFirst] = useState(false);
+  const [isNewestFirst, setIsNewestFirst] = useState(true);
   const [sortBy, setSortBy] = useState("createdTime"); 
 
   const sortByTitle = (todos) => {
@@ -46,29 +47,34 @@ function TodoContainer({ tableName }) {
   };
 
   function handleSort() {
-
     let sortedTodos = [...todoList];
 
     if (sortBy === "title") {
-       sortedTodos = sortByTitle(sortedTodos);
-       setIsAscending(!isAscending);  
+      sortedTodos = sortByTitle(sortedTodos);
     } else if (sortBy === "createdTime") {
       sortedTodos = sortByDate(sortedTodos);
-      setIsNewestFirst(!isNewestFirst);
     }
 
     setTodoList(sortedTodos);
-
   }
 
- const handleSortByChange = (event) => {
-   setSortBy(event.target.value);
-   handleSort();
- };
-
- useEffect(() => {
+  const toggle = () => {
     handleSort();
- }, [sortBy]);
+    return sortBy === "title"
+      ? setIsAscending(!isAscending)
+      : setIsNewestFirst(!isNewestFirst);
+  };
+
+  const handleSortByChange = (event) => {
+    setSortBy(event.target.value);
+    handleSort();
+  };
+
+  useEffect(() => {
+    handleSort();
+  }, [sortBy, isAscending, isNewestFirst]);
+
+
 
   //Fetching data
   const fetchData = useCallback(async () => {
@@ -97,6 +103,7 @@ function TodoContainer({ tableName }) {
           id: todo.id,
           title: todo.fields.title,
           createdTime: todo.createdTime,
+          isCompleted: todo.fields.isCompleted,
         };
       });
 
@@ -111,6 +118,7 @@ function TodoContainer({ tableName }) {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+
 
   //Add a new todo
   async function addTodo(title) {
@@ -130,6 +138,7 @@ function TodoContainer({ tableName }) {
             fields: {
               title: title,
               createdTime: new Date(),
+              isCompleted: false,
             },
           },
         ],
@@ -149,15 +158,60 @@ function TodoContainer({ tableName }) {
         id: data.records[0].id,
         title: data.records[0].fields.title,
         createdTime: data.records[0].fields.createdTime,
+        isCompleted: data.records[0].fields.isCompleted,
       };
 
       setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
+      console.log("updated todolist after add:", todoList);
     } catch (error) {
       console.log(error.message);
       return null;
     }
   }
 
+  //Update Checkbox(isCompleted) Status
+
+  async function updateTodoCompletion(id, isCompleted) {
+    const url = `https://api.airtable.com/v0/${
+      import.meta.env.VITE_AIRTABLE_BASE_ID
+    }/${tableName}`;
+
+    const options = {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        records: [
+          {
+            id: id,
+            fields: {
+              isCompleted: isCompleted ? false : true 
+            },
+          },
+        ],
+      }),
+    };
+
+    try {
+      const response = await fetch(url, options);
+      console.log(response)
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+
+      setTodoList((prevTodoList) =>
+        prevTodoList.map((todo) => 
+          todo.id == id ? { ...todo, isCompleted } : todo
+        )
+      );
+      console.log("updated todolist:", todoList)
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
   //Remove a todo
   async function removeTodo(id) {
     const url = `https://api.airtable.com/v0/${
@@ -171,7 +225,7 @@ function TodoContainer({ tableName }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        records: [id],
+        records: id,
       }),
     };
 
@@ -194,33 +248,38 @@ function TodoContainer({ tableName }) {
 
   return (
     <div className={styles.todoContainer}>
-      {/* <h1 className={styles.header}>{tableName}</h1> */}
+      <h1 className={styles.header}>{tableName}</h1>
       <div className={styles.formAndList}>
         <AddTodoForm onAddTodo={addTodo} />
 
         {!isLoading && (
           <div className={styles.buttonContainer}>
-            <label htmlFor="sortBy">Sort By:</label>
-            <select
-              id="sortBy"
-              value={sortBy}
-              onChange={handleSortByChange}
-              className={styles.sortByButton}
-            >
-              <option value="title">Title</option>
-              <option value="createdTime">Created Time</option>
-              {/* {isAscending ? "Z->A" : "A->Z"} */}
-            </select>
-            <button className={styles.buttonSort} onClick={handleSort}>
-              {isAscending ? "Ascending" : "Descending"}
-            </button>
+            <div className={styles.sortBy}>
+              <label htmlFor="sortBy" className={styles.sortByLabel}>Sort By:</label>
+              <select
+                id="sortBy"
+                value={sortBy}
+                onChange={handleSortByChange}
+                className={styles.sortBySelectionButton}
+              >
+                <option value="title">Title</option>
+                <option value="createdTime">Created Time</option>
+              </select>
+            </div>
+            {/* <span className={styles.toggleButton} /> */}
+            <BiSortAlt2 className={styles.toggleButton} onClick={toggle} />
+            {/* <span /> */}
           </div>
         )}
 
         {isLoading ? (
           <p>Loading...</p>
         ) : (
-          <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
+          <TodoList
+            todoList={todoList}
+            onRemoveTodo={removeTodo}
+            onCompleteTodo={updateTodoCompletion}
+          />
         )}
       </div>
     </div>
