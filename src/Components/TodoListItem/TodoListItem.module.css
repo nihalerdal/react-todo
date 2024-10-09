@@ -15,6 +15,21 @@
 .removeButton {
   background-color: #d9d9e4;
 }
+.editButton{
+  background-color: #d9d9e4;
+  margin-right: 3px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.saveButton{
+  background-color: #d9d9e4;
+  margin-right: 3px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 8px;
+}
 
 .iconWrapper {
   display: flex;
@@ -53,4 +68,8 @@ align-items: center;
   background-color: white;
   cursor: pointer;
   opacity: 0.5; 
+}
+.updateButtonContainer{
+display: flex;
+align-items: center;
 }

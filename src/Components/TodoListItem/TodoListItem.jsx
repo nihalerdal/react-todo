@@ -1,5 +1,7 @@
 import styles from "./TodoListItem.module.css";
 import { FaTrash } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
+import { FaSave } from "react-icons/fa";
 import PropTypes from "prop-types";
 import { useState } from "react";
 
@@ -76,21 +78,23 @@ const saveChanges = () => {
           </span>
         </div>
       </div>
-      {isEditing ? (
-        <button onClick={saveChanges}>Save</button>
-      ) : (
-        <button onClick={handleEditMode}>Edit</button>
-      )}
-      <span className={styles.iconWrapper}>
-        <FaTrash
-          className={styles.removeButton}
-          type="button"
-          onClick={() => onRemoveTodo(id)}
-        >
-          {" "}
-          Remove
-        </FaTrash>
-      </span>
+      <div className={styles.updateButtonContainer}>
+        {isEditing ? (
+          <FaSave className={styles.saveButton} onClick={saveChanges} />
+        ) : (
+          <FaEdit className={styles.editButton} onClick={handleEditMode} />
+        )}
+        <span className={styles.iconWrapper}>
+          <FaTrash
+            className={styles.removeButton}
+            type="button"
+            onClick={() => onRemoveTodo(id)}
+          >
+            {" "}
+            Remove
+          </FaTrash>
+        </span>
+      </div>
     </li>
   );
 }
