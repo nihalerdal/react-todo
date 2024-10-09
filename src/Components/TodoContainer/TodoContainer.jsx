@@ -126,6 +126,8 @@ function TodoContainer({ tableName }) {
       import.meta.env.VITE_AIRTABLE_BASE_ID
     }/${tableName}`;
 
+    const trimmedTitle = title.trim();
+
     const options = {
       method: "POST",
       headers: {
@@ -136,7 +138,7 @@ function TodoContainer({ tableName }) {
         records: [
           {
             fields: {
-              title: title,
+              title: trimmedTitle,
               createdTime: new Date(),
               isCompleted: false,
             },
@@ -144,28 +146,31 @@ function TodoContainer({ tableName }) {
         ],
       }),
     };
+    if (trimmedTitle === "") {
+      return;
+    } else {
+      try {
+        const response = await fetch(url, options);
 
-    try {
-      const response = await fetch(url, options);
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
 
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
+        const data = await response.json();
+
+        const newTodo = {
+          id: data.records[0].id,
+          title: data.records[0].fields.title,
+          createdTime: data.records[0].fields.createdTime,
+          isCompleted: data.records[0].fields.isCompleted,
+        };
+
+        setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
+        console.log("updated todolist after add:", todoList);
+      } catch (error) {
+        console.log(error.message);
+        return null;
       }
-
-      const data = await response.json();
-
-      const newTodo = {
-        id: data.records[0].id,
-        title: data.records[0].fields.title,
-        createdTime: data.records[0].fields.createdTime,
-        isCompleted: data.records[0].fields.isCompleted,
-      };
-
-      setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
-      console.log("updated todolist after add:", todoList);
-    } catch (error) {
-      console.log(error.message);
-      return null;
     }
   }
 
