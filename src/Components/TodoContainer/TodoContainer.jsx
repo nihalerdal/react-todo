@@ -98,6 +98,7 @@ function TodoContainer({ tableName }) {
       }
 
       const data = await response.json();
+    
       const todos = data.records.map((todo) => {
         return {
           id: todo.id,
@@ -176,43 +177,38 @@ function TodoContainer({ tableName }) {
 
   //Update Checkbox(isCompleted) Status
 
-  async function updateTodoCompletion(id, isCompleted) {
+  async function updateTodo(id, title, isCompleted) {
     const url = `https://api.airtable.com/v0/${
       import.meta.env.VITE_AIRTABLE_BASE_ID
-    }/${tableName}`;
+    }/${tableName}/${id}`;
 
     const options = {
-      method: "PATCH",
+      method: "PUT",
       headers: {
         Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        records: [
-          {
-            id: id,
-            fields: {
-              isCompleted: isCompleted ? false : true 
-            },
-          },
-        ],
+        fields: {
+          title: title,
+          isCompleted: isCompleted,
+        },
       }),
     };
 
     try {
       const response = await fetch(url, options);
-      console.log(response)
+      console.log(response);
 
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
       }
 
       setTodoList((prevTodoList) =>
-        prevTodoList.map((todo) => 
-          todo.id == id ? { ...todo, isCompleted } : todo
+        prevTodoList.map((todo) =>
+          todo.id === id ? { ...todo, isCompleted: isCompleted, title } : todo
         )
       );
-      console.log("updated todolist:", todoList)
     } catch (error) {
       console.log(error.message);
     }
@@ -283,7 +279,7 @@ function TodoContainer({ tableName }) {
           <TodoList
             todoList={todoList}
             onRemoveTodo={removeTodo}
-            onCompleteTodo={updateTodoCompletion}
+            onEditTodo={updateTodo}
           />
         )}
       </div>

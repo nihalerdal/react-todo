@@ -48,7 +48,7 @@ align-items: center;
   width: 20px;
   height: 20px;
   border: 1px solid #b3b5de;
-  order-radius: 4px;
+  border-radius: 4px;
   margin-right: 8px;
   background-color: white;
   cursor: pointer;

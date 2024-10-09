@@ -2,8 +2,7 @@ import TodoListItem from "../TodoListItem/TodoListItem";
 import styles from "./TodoList.module.css";
 import PropTypes from "prop-types";
 
-function TodoList({ todoList, onRemoveTodo, onCompleteTodo }) {
-
+function TodoList({ todoList, onRemoveTodo, onEditTodo }) {
   return (
     <ul className={styles.todoList} style={{ listStyleType: "none" }}>
       {todoList.map((todo) => (
@@ -13,7 +12,7 @@ function TodoList({ todoList, onRemoveTodo, onCompleteTodo }) {
           createdTime={todo.createdTime}
           isCompleted={todo.isCompleted}
           onRemoveTodo={onRemoveTodo}
-          onCompleteTodo={onCompleteTodo}
+          onEditTodo={onEditTodo}
           id={todo.id}
         />
       ))}
