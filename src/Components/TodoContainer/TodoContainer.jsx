@@ -160,7 +160,7 @@ function TodoContainer({ tableName }) {
         }
 
         const data = await response.json();
-console.log("response", data); 
+        console.log("response", data);
         const newTodo = {
           id: data.records[0].id,
           title: data.records[0].fields.title,
@@ -168,7 +168,7 @@ console.log("response", data);
           isCompleted: data.records[0].fields.isCompleted ?? false,
         };
 
-console.log("newTodo", newTodo)
+        console.log("newTodo", newTodo);
         setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
         console.log("updated todolist after add:", todoList);
       } catch (error) {

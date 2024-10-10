@@ -15,7 +15,7 @@
 .removeButton {
   background-color: #d9d9e4;
 }
-.editButton{
+.editButton {
   background-color: #d9d9e4;
   margin-right: 3px;
   cursor: pointer;
@@ -23,7 +23,7 @@
   border-radius: 8px;
 }
 
-.saveButton{
+.saveButton {
   background-color: #d9d9e4;
   margin-right: 3px;
   cursor: pointer;
@@ -42,34 +42,55 @@
   border-radius: 8px;
 }
 
-.date{
-font-size: 11px;
-font-weight:lighter;
-
+.date {
+  font-size: 11px;
+  font-weight: 500;
 }
 
-.textContainer{
-display: flex;
-/* flex-direction: column; */
-align-items: center;
+.textContainer {
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
 }
 
-.texts{
+.texts {
   display: flex;
   flex-direction: column;
 }
 
 .checkBox {
-  width: 20px;
-  height: 20px;
-  border: 1px solid #b3b5de;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border: 3px solid #8d91dd;
   border-radius: 4px;
   margin-right: 8px;
   background-color: white;
   cursor: pointer;
-  opacity: 0.5; 
+  position: relative;
+  display: flex;
+  align-items: center;
 }
-.updateButtonContainer{
-display: flex;
-align-items: center;
+
+.checkBox:checked {
+  background-color: #7984e6;
+  color: white
+}
+
+.checkBox:checked::before {
+  content: "\2713";
+  font-size: 29px; 
+}
+
+.updateButtonContainer {
+  display: flex;
+  align-items: center;
+}
+
+.updatedTitleInput {
+  background-color: white;
+  color: #676666;
+  font-family: "Roboto", sans-serif;
+  font-weight: 800;
+  border: 3px solid #b3b5de;
 }
