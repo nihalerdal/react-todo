@@ -8,7 +8,7 @@ import { useState } from "react";
 function TodoListItem({ title, onRemoveTodo, id, createdTime, onEditTodo , isCompleted}) {
   const [isChecked, setIsChecked] = useState(isCompleted);
   const [isEditing, setIsEditing] = useState(false);
-  const [updatedTodoTitle, setUpdatedTodoTitle] = useState("");
+  const [updatedTodoTitle, setUpdatedTodoTitle] = useState(title || "");
 
 
   const handleTitleChange = (event) => {
@@ -26,7 +26,7 @@ const handleEditMode = () => {
 };
 
 const saveChanges = () => {
-  onEditTodo(id, updatedTodoTitle, isCompleted);
+  onEditTodo(id, updatedTodoTitle, isChecked);
   handleEditMode();
 };
 
@@ -34,22 +34,13 @@ const saveChanges = () => {
   return (
     <li className={styles.listItem}>
       <div className={styles.textContainer}>
-        {isEditing ? (
           <input
             className={styles.checkBox}
             type="checkbox"
             checked={isChecked}
             onChange={handleCheckBoxChecked}
+            disabled = {!isEditing}
           />
-        ) : (
-          <input
-            className={styles.checkBox}
-            type="checkbox"
-            checked={isChecked}
-            readOnly
-          />
-        )}
-
         <div className={styles.texts}>
           {isEditing ? (
             <input
@@ -60,7 +51,7 @@ const saveChanges = () => {
             />
           ) : (
             <span
-              style={{ textDecoration: isCompleted ? "line-through" : "none" }}
+              style={{ textDecoration: isChecked ? "line-through" : "none" }}
             >
               {title}
             </span>
@@ -109,3 +100,4 @@ TodoListItem.propTypes = {
 };
 
 export default TodoListItem;
+

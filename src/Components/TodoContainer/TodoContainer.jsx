@@ -98,7 +98,7 @@ function TodoContainer({ tableName }) {
       }
 
       const data = await response.json();
-    
+      console.log(data);
       const todos = data.records.map((todo) => {
         return {
           id: todo.id,
@@ -147,6 +147,8 @@ function TodoContainer({ tableName }) {
         ],
       }),
     };
+
+    console.log("Request body:", options.body);
     if (trimmedTitle === "") {
       return;
     } else {
@@ -158,7 +160,7 @@ function TodoContainer({ tableName }) {
         }
 
         const data = await response.json();
-
+console.log("response", data); 
         const newTodo = {
           id: data.records[0].id,
           title: data.records[0].fields.title,
@@ -166,6 +168,7 @@ function TodoContainer({ tableName }) {
           isCompleted: data.records[0].fields.isCompleted,
         };
 
+console.log("newTodo", newTodo)
         setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
         console.log("updated todolist after add:", todoList);
       } catch (error) {
@@ -181,6 +184,7 @@ function TodoContainer({ tableName }) {
     const url = `https://api.airtable.com/v0/${
       import.meta.env.VITE_AIRTABLE_BASE_ID
     }/${tableName}/${id}`;
+    console.log(isCompleted);
 
     const options = {
       method: "PUT",
@@ -191,7 +195,7 @@ function TodoContainer({ tableName }) {
       body: JSON.stringify({
         fields: {
           title: title,
-          isCompleted: isCompleted,
+          isCompleted: isCompleted ,
         },
       }),
     };
@@ -209,6 +213,7 @@ function TodoContainer({ tableName }) {
           todo.id === id ? { ...todo, isCompleted: isCompleted, title } : todo
         )
       );
+      console.log("Updated todo list after update:", todoList);
     } catch (error) {
       console.log(error.message);
     }
