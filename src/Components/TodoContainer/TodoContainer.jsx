@@ -104,7 +104,7 @@ function TodoContainer({ tableName }) {
           id: todo.id,
           title: todo.fields.title,
           createdTime: todo.createdTime,
-          isCompleted: todo.fields.isCompleted,
+          isCompleted: todo.fields.isCompleted ?? false,
         };
       });
 
@@ -165,7 +165,7 @@ console.log("response", data);
           id: data.records[0].id,
           title: data.records[0].fields.title,
           createdTime: data.records[0].fields.createdTime,
-          isCompleted: data.records[0].fields.isCompleted,
+          isCompleted: data.records[0].fields.isCompleted ?? false,
         };
 
 console.log("newTodo", newTodo)
