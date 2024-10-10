@@ -1,5 +1,5 @@
-import {useState} from "react";
-import InputWithLabel from "./InputWithLabel";
+import { useState } from "react";
+import InputWithLabel from "../InputWithLabels/InputWithLabel";
 import styles from "./AddTodoForm.module.css";
 import PropTypes from "prop-types";
 
