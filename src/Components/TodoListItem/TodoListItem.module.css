@@ -1,12 +1,12 @@
 .listItem {
   display: flex;
   min-width: 100%;
-  min-height: 40px;
+  min-height: 45px;
   justify-content: space-between;
   align-items: center;
   /* border: 2px solid #b3b5de; */
   border-radius: 15px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   padding: 10px;
   background-color: whitesmoke;
   color: #676666;

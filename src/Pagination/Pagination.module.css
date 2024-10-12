@@ -1,0 +1,34 @@
+.previousButton{
+  border-radius: 8px;
+  border-color: transparent;
+  border: 0;
+  max-width: 120px;
+  background-color: #7984e6;
+  cursor: pointer;
+  padding: 12px;
+  margin-right: 5px;
+  width: auto;
+  font-size: smaller;
+  font-weight: bold;
+  color: whitesmoke;
+  /* opacity: 0.8; */
+}
+
+
+.nextButton{
+ border-radius: 8px;
+  border-color: transparent;
+  border: 0;
+  max-width: 90px;
+  background-color: #7984e6;
+  cursor: pointer;
+  padding: 12px;
+  margin-left: 5px;
+  width: auto;
+  font-weight: bold;
+  /* opacity: 0.8; */
+}
+
+.pageTitle{
+    color: #676666;;
+}

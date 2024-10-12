@@ -10,7 +10,7 @@ function TodoContainer({ tableName }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isAscending, setIsAscending] = useState(false);
   const [isNewestFirst, setIsNewestFirst] = useState(true);
-  const [sortBy, setSortBy] = useState("createdTime"); 
+  const [sortBy, setSortBy] = useState("createdTime");
 
   const sortByTitle = (todos) => {
     return [...todos].sort((a, b) => {
@@ -34,7 +34,7 @@ function TodoContainer({ tableName }) {
       else {
         return !isNaN(titleA) ? -1 : 1;
       }
-    }); 
+    });
   };
 
   const sortByDate = (todos) => {
@@ -73,8 +73,6 @@ function TodoContainer({ tableName }) {
   useEffect(() => {
     handleSort();
   }, [sortBy, isAscending, isNewestFirst]);
-
-
 
   //Fetching data
   const fetchData = useCallback(async () => {
@@ -119,7 +117,6 @@ function TodoContainer({ tableName }) {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
-
 
   //Add a new todo
   async function addTodo(title) {
@@ -179,7 +176,6 @@ function TodoContainer({ tableName }) {
   }
 
   //Update Checkbox(isCompleted) Status
-
   async function updateTodo(id, title, isCompleted) {
     const url = `https://api.airtable.com/v0/${
       import.meta.env.VITE_AIRTABLE_BASE_ID
@@ -195,7 +191,7 @@ function TodoContainer({ tableName }) {
       body: JSON.stringify({
         fields: {
           title: title,
-          isCompleted: isCompleted ,
+          isCompleted: isCompleted,
         },
       }),
     };
@@ -261,7 +257,9 @@ function TodoContainer({ tableName }) {
         {!isLoading && (
           <div className={styles.buttonContainer}>
             <div className={styles.sortBy}>
-              <label htmlFor="sortBy" className={styles.sortByLabel}>Sort By:</label>
+              <label htmlFor="sortBy" className={styles.sortByLabel}>
+                Sort By:
+              </label>
               <select
                 id="sortBy"
                 value={sortBy}
