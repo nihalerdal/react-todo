@@ -1,0 +1,23 @@
+
+.Footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  letter-spacing: 1px;
+  width: 100%;
+  margin-bottom: 0;
+  padding-right: 2%;
+}
+
+.CopyRight {
+  margin-left: 2%;
+  color: #6f7083;;
+}
+
+.GitHubLogo {
+    margin-right: 5%;
+  font-size: 12px;
+  height: 30px;
+  width: auto;
+  fill: #7984e6;
+}

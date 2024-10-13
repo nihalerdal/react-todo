@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import TodoContainer from "../Components/TodoContainer/TodoContainer";
 import Home from "../Components/Home/Home";
+import Footer from "../Components/Footer/Footer"
 import styles from "./App.module.css";
 
 function Navigation() {
@@ -34,15 +35,20 @@ function App() {
   return (
     <main className={styles.main}>
       <section className={styles.section}>
-      <BrowserRouter>
-        <Navigation />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/todo" element={<TodoContainer tableName={import.meta.env.VITE_TABLE_NAME} />}
-          />
-        </Routes>
-      </BrowserRouter>
+        <BrowserRouter>
+          <Navigation />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/todo"
+              element={
+                <TodoContainer tableName={import.meta.env.VITE_TABLE_NAME} />
+              }
+            />
+          </Routes>
+        </BrowserRouter>
       </section>
+      <Footer />
     </main>
   );
 }
