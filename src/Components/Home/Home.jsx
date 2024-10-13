@@ -7,13 +7,7 @@ function Home() {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname === "/") {
-      document.body.style.backgroundImage =
-        "url('./pexels-shvets-production-9743075.jpg')";
-      document.body.style.backgroundSize = "contain";
-      document.body.style.backgroundRepeat = "no-repeat";
-      document.body.style.backgroundPosition = "bottom";
-    } else {
+    if (location.pathname !== "/") {
       // If it's not the home page, reset the background image
       document.body.style.backgroundImage = ""; // Reset the background
     }
@@ -22,7 +16,18 @@ function Home() {
     };
   }, [location.pathname]);
 
-  return <div className={styles.homeContainer}></div>;
+  return (
+    <div className={styles.homeContainer}>
+      <h1 className={styles.homeHeader}>
+        Keep Your Life Organized: Create and Manage Tasks Effortlessly!
+      </h1>
+      <p className={styles.homeText}>
+        Your journey to a more organized life starts here! With our task
+        management app, you can efficiently handle your to-dos and ensure
+        nothing falls through the cracks.
+      </p>
+    </div>
+  );
 }
 
 export default Home;

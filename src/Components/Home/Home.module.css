@@ -1,3 +1,40 @@
 .homeContainer {
-   opacity: 0.5; 
+  opacity: 0.7;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  width: 40%;
+  margin-right: 8%;
+  margin-top: 20%;
+}
+
+.homeContainer::before {
+  content: "";
+  background-image: url("./pexels-shvets-production-9743075.jpg");
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: contain;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.homeText {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 4%;
+  font-size: 18px;
+  width: 72%;
+  font-style: italic;
+  text-align: left;
+}
+
+.homeHeader {
+  margin-left: 4%;
+  font-style: italic;
+  font-size: 35px;
 }

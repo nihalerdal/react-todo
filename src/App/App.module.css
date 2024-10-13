@@ -11,32 +11,35 @@
   flex-direction: column;
   margin: 0;
   min-width: 100%;
+  align-items: flex-end;
 }
 
 .navContainer {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   top: 0;
-  padding: 1rem;
+  padding-top: 2rem;
+  padding-right: 6%;
+   z-index: 1;
 }
 
 .navItem {
-  color: #6370e9;
+  color:  #6f7083;
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   padding: 0.5rem 1rem;
-  border-radius: 4px;
-  transition: background-color 0.3s, color 0.3s;
+  font-weight: bolder;
+  margin: 0 6px;
 }
 
 .navItem:hover {
-  color: #ffffff;
+  border: 3px solid #6370e9;
 }
 
 .activeNavItem {
-  background-color: #626fef;
-  color: #ffffff;
+  color:  #6f7083;
   font-weight: bold;
+  border-bottom: 5px solid #6370e9;
 }
 
 @media (max-width: 480px) {
