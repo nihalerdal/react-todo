@@ -94,3 +94,7 @@
   font-weight: 800;
   border: 3px solid #b3b5de;
 }
+
+@media (max-width: 480px) {
+ 
+}

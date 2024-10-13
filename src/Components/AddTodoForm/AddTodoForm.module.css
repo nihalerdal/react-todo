@@ -28,6 +28,10 @@
     align-items: center;
     gap: 1px;
   }
+
+  .addButton{
+     padding: 7px;
+  }
 }
 
 @media (min-width: 768px) {
