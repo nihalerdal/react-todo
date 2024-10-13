@@ -26,10 +26,10 @@ function Pagination({ onPageChange, currentPage, todoList, itemsPerPage }) {
         </button>
       )}
 
-      {(currentPage > 1) &&  (currentPage < totalPages) && (
-      <span className={styles.pageTitle} disabled={currentPage === 1}>
-        Page {currentPage} of {totalPages}
-      </span>
+      {(currentPage > 1) && (currentPage < totalPages) && (
+        <span className={styles.pageTitle} disabled={currentPage === 1}>
+          Page {currentPage} of {totalPages}
+        </span>
       )}
 
       {(currentPage < totalPages) && (

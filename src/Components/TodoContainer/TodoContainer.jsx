@@ -254,7 +254,7 @@ function TodoContainer({ tableName }) {
       <div className={styles.formAndList}>
         <AddTodoForm onAddTodo={addTodo} />
 
-        {!isLoading && (
+        {!isLoading && (todoList.length !== 0) && (
           <div className={styles.buttonContainer}>
             <div className={styles.sortBy}>
               <label htmlFor="sortBy" className={styles.sortByLabel}>
