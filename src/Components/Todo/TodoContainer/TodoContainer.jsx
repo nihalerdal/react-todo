@@ -46,6 +46,13 @@ function TodoContainer({ tableName }) {
     });
   };
 
+  const sortByCompletion = (todos) => {
+    return [...todos].sort((a, b) => {
+       if (a.isCompleted === b.isCompleted) return 0;
+      return (a.isCompleted) ?  (isAscending ? 1 : -1) : (isAscending ? -1 : 1);
+    })
+  }
+
   function handleSort() {
     let sortedTodos = [...todoList];
 
@@ -53,16 +60,20 @@ function TodoContainer({ tableName }) {
       sortedTodos = sortByTitle(sortedTodos);
     } else if (sortBy === "createdTime") {
       sortedTodos = sortByDate(sortedTodos);
-    }
-
+    } else if (sortBy === "status")
+      sortedTodos = sortByCompletion(sortedTodos);
     setTodoList(sortedTodos);
   }
 
   const toggle = () => {
     handleSort();
-    return sortBy === "title"
-      ? setIsAscending(!isAscending)
-      : setIsNewestFirst(!isNewestFirst);
+    if (sortBy === "title") {
+      setIsAscending(!isAscending);
+    } else if (sortBy === "createdTime") {
+      setIsNewestFirst(!isNewestFirst);
+    } else {
+      setIsAscending(!isAscending);
+    }
   };
 
   const handleSortByChange = (event) => {
@@ -226,9 +237,6 @@ function TodoContainer({ tableName }) {
         Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        records: id,
-      }),
     };
 
     try {
@@ -268,6 +276,7 @@ function TodoContainer({ tableName }) {
               >
                 <option value="title">Title</option>
                 <option value="createdTime">Created Time</option>
+                <option value="status">Status</option>
               </select>
             </div>
             {/* <span className={styles.toggleButton} /> */}
