@@ -1,14 +1,15 @@
-import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
-import TodoContainer from "../Components/TodoContainer/TodoContainer";
+import { BrowserRouter, Routes, Route, NavLink, Navigate, } from "react-router-dom";
+import TodoContainer from "../Components/Todo/TodoContainer/TodoContainer";
 import Home from "../Components/Home/Home";
-import Footer from "../Components/Footer/Footer"
+import PageNotFound from "../Components/PageNotFound/PageNotFound";
+import Footer from "../Components/Footer/Footer";
 import styles from "./App.module.css";
 
 function Navigation() {
   return (
     <nav className={styles.navContainer}>
       <NavLink
-        to="/"
+        to="/home"
         className={({ isActive }) =>
           isActive
             ? `${styles.navItem} ${styles.activeNavItem}`
@@ -36,19 +37,22 @@ function App() {
     <main className={styles.main}>
       <section className={styles.section}>
         <BrowserRouter>
-          <Navigation />
+          { <Navigation />}
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Navigate to="/home" />} />
+            <Route path="/home" element={<Home />} />
             <Route
               path="/todo"
               element={
                 <TodoContainer tableName={import.meta.env.VITE_TABLE_NAME} />
               }
             />
+            <Route path="/*" element={<Navigate to="/404" />} />
+            <Route path="/404" element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>
       </section>
-      <Footer />
+      <Footer/>
     </main>
   );
 }

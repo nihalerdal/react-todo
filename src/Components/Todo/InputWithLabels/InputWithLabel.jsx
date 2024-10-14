@@ -11,9 +11,6 @@ function InputWithLabel({ children, todoTitle, handleTitleChange }) {
 
   return (
     <>
-      {/* <label className={styles.titleLabel} htmlFor="todoTitle">
-        {children}
-      </label> */}
       <input
         className={styles.inputBox}
         ref={inputRef}
