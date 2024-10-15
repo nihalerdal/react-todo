@@ -1,11 +1,13 @@
 import { BrowserRouter, Routes, Route, NavLink, Navigate, } from "react-router-dom";
+import { useState, useEffect} from "react";
 import TodoContainer from "../Components/Todo/TodoContainer/TodoContainer";
 import Home from "../Components/Home/Home";
 import PageNotFound from "../Components/PageNotFound/PageNotFound";
 import Footer from "../Components/Footer/Footer";
+import DarkLightTheme from "../Components/DarkLightTheme/DarkLightTheme";
 import styles from "./App.module.css";
 
-function Navigation() {
+function Navigation({theme, toggleTheme}) {
   return (
     <nav className={styles.navContainer}>
       <NavLink
@@ -28,16 +30,28 @@ function Navigation() {
       >
         Todo List
       </NavLink>
+      <DarkLightTheme theme={theme} toggleTheme={toggleTheme} />
     </nav>
   );
 }
 
 function App() {
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  };
+
   return (
     <main className={styles.main}>
       <section className={styles.section}>
         <BrowserRouter>
-          { <Navigation />}
+          {<Navigation theme={theme} toggleTheme={toggleTheme} />}
           <Routes>
             <Route path="/" element={<Navigate to="/home" />} />
             <Route path="/home" element={<Home />} />
@@ -52,7 +66,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </section>
-      <Footer/>
+      <Footer />
     </main>
   );
 }

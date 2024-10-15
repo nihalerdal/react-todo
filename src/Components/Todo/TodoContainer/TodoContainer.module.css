@@ -14,6 +14,11 @@
   margin-bottom: 1%;
 }
 
+[data-theme="dark"] .header {
+  color:whitesmoke;
+}
+
+
 .formAndList {
   display: flex;
   flex-direction: column;

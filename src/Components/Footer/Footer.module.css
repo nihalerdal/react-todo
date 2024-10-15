@@ -1,5 +1,4 @@
-
-.Footer {
+.footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -9,15 +8,23 @@
   padding-right: 2%;
 }
 
-.CopyRight {
+.copyRight {
   margin-left: 2%;
-  color: #6f7083;;
+  color: #6f7083;
 }
 
-.GitHubLogo {
-    margin-right: 5%;
+[data-theme="dark"] .copyRight {
+  color: whitesmoke;
+}
+
+.gitHubLogo {
+  margin-right: 5%;
   font-size: 12px;
   height: 30px;
   width: auto;
   fill: #7984e6;
+}
+
+[data-theme="dark"] .gitHubLogo {
+  fill: whitesmoke;
 }

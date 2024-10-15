@@ -19,8 +19,10 @@
   justify-content: flex-end;
   top: 0;
   padding-top: 2rem;
-  padding-right: 6%;
+  padding-right: 1%;
+  align-items: center;
    z-index: 1;
+   width: 35%;
 }
 
 .navItem {
@@ -32,14 +34,26 @@
   margin: 0 6px;
 }
 
+[data-theme="dark"] .navItem {
+  color:whitesmoke;
+}
+
 .navItem:hover {
   border: 3px solid #6370e9;
+}
+
+[data-theme="dark"] .navItem:hover {
+    border: 3px solid whitesmoke;
 }
 
 .activeNavItem {
   color:  #6f7083;
   font-weight: bold;
   border-bottom: 5px solid #6370e9;
+}
+
+[data-theme="dark"] .activeNavItem {
+    border-bottom: 5px solid whitesmoke;
 }
 
 @media (max-width: 480px) {

@@ -7,13 +7,13 @@ function Footer() {
   const thisYear = today.getFullYear();
 
   return (
-    <footer className={styles.Footer}>
+    <footer className={styles.footer}>
       
-        <p className={styles.CopyRight}>
+        <p className={styles.copyRight}>
           © Nihal Erdal {thisYear} All rights reserved.
         </p>
         <a href="https://github.com/nihalerdal" target="_blank" rel="noopener">
-          <FaGithub className={styles.GitHubLogo} />
+          <FaGithub className={styles.gitHubLogo} />
         </a>
      
     </footer>
