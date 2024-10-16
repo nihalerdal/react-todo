@@ -194,7 +194,9 @@ function TodoContainer({ tableName }) {
     const url = `https://api.airtable.com/v0/${
       import.meta.env.VITE_AIRTABLE_BASE_ID
     }/${tableName}/${id}`;
-    console.log(isCompleted);
+    
+    const currentTodo = todoList.find((todo) => todo.id === id);
+    const createdTimeForUpdate = currentTodo.createdTime
 
     const options = {
       method: "PUT",
@@ -205,6 +207,7 @@ function TodoContainer({ tableName }) {
       body: JSON.stringify({
         fields: {
           title: title,
+          createdTime: createdTimeForUpdate,
           isCompleted: isCompleted,
         },
       }),

@@ -31,6 +31,10 @@
   color: #676666;
 }
 
+[data-theme="dark"] .pageTitle {
+  color : whitesmoke
+}
+
 @media (max-width: 480px) {
   .nextButton {
     padding: 6px;
