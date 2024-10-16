@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import styles from "./PageNotFound.module.css";
 
 function PageNotFound() {
-  //changing background for 404 page
   const location = useLocation();
   useEffect(() => {
     if (location.pathname === "/404") {

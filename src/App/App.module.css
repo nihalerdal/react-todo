@@ -15,7 +15,7 @@
 }
 
 
-@media (max-width: 480px) {
+/* @media (max-width: 480px) {
 
   .main{
     padding: 15px;
@@ -23,11 +23,11 @@
   .section {
     align-items: center;
     /* margin: 5%  */
-  }
+  /* }
   .header{
    display: none;
   }
-}
+} */ 
 
 @media (max-width: 768px) {
  
@@ -36,7 +36,6 @@
   }
   .section {
     align-items: center;
-    /* margin: 5%  */
   }
   .header{
    display: none;

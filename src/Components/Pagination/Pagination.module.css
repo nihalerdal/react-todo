@@ -1,34 +1,42 @@
-.previousButton{
+.previousButton {
   border-radius: 8px;
   border-color: transparent;
   border: 0;
   max-width: 120px;
   background-color: #7984e6;
   cursor: pointer;
-  padding: 12px;
+  padding: 10px;
   margin-right: 5px;
   width: auto;
   font-size: smaller;
   font-weight: bold;
   color: whitesmoke;
-  /* opacity: 0.8; */
 }
 
-
-.nextButton{
- border-radius: 8px;
+.nextButton {
+  text-align: center;
+  border-radius: 8px;
   border-color: transparent;
   border: 0;
-  max-width: 90px;
+  max-width: 120px;
   background-color: #7984e6;
   cursor: pointer;
-  padding: 12px;
+  padding: 10px 30px;
   margin-left: 5px;
-  width: auto;
   font-weight: bold;
-  /* opacity: 0.8; */
+  color: whitesmoke;
 }
 
-.pageTitle{
-    color: #676666;;
+.pageTitle {
+  color: #676666;
+}
+
+@media (max-width: 480px) {
+  .nextButton {
+    padding: 6px;
+  }
+
+  .previousButton {
+    padding: 6px;
+  }
 }

@@ -5,12 +5,14 @@ import styles from "./TodoContainer.module.css";
 import { BiSortAlt2 } from "react-icons/bi";
 import PropTypes from "prop-types";
 
+//Main component that interacts with API's and sorting data
 function TodoContainer({ tableName }) {
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isAscending, setIsAscending] = useState(false);
   const [isNewestFirst, setIsNewestFirst] = useState(true);
   const [sortBy, setSortBy] = useState("createdTime");
+
 
   const sortByTitle = (todos) => {
     return [...todos].sort((a, b) => {
@@ -76,6 +78,7 @@ function TodoContainer({ tableName }) {
     }
   };
 
+  //select a parameter for sort
   const handleSortByChange = (event) => {
     setSortBy(event.target.value);
     handleSort();
@@ -85,7 +88,8 @@ function TodoContainer({ tableName }) {
     handleSort();
   }, [sortBy, isAscending, isNewestFirst]);
 
-  //Fetching data
+
+  //Fetching data from Airtable
   const fetchData = useCallback(async () => {
     const url = `https://api.airtable.com/v0/${
       import.meta.env.VITE_AIRTABLE_BASE_ID
@@ -129,12 +133,13 @@ function TodoContainer({ tableName }) {
     fetchData();
   }, [fetchData]);
 
-  //Add a new todo
+  //Add a new todo 
   async function addTodo(title) {
     const url = `https://api.airtable.com/v0/${
       import.meta.env.VITE_AIRTABLE_BASE_ID
     }/${tableName}`;
 
+    //trim whitespace
     const trimmedTitle = title.trim();
 
     const options = {
@@ -156,7 +161,7 @@ function TodoContainer({ tableName }) {
       }),
     };
 
-    console.log("Request body:", options.body);
+  //if the title is empty, no allow to add
     if (trimmedTitle === "") {
       return;
     } else {
@@ -168,7 +173,7 @@ function TodoContainer({ tableName }) {
         }
 
         const data = await response.json();
-        console.log("response", data);
+
         const newTodo = {
           id: data.records[0].id,
           title: data.records[0].fields.title,
@@ -176,9 +181,7 @@ function TodoContainer({ tableName }) {
           isCompleted: data.records[0].fields.isCompleted ?? false,
         };
 
-        console.log("newTodo", newTodo);
         setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
-        console.log("updated todolist after add:", todoList);
       } catch (error) {
         console.log(error.message);
         return null;
@@ -186,7 +189,7 @@ function TodoContainer({ tableName }) {
     }
   }
 
-  //Update Checkbox(isCompleted) Status
+  //Update todo/todos
   async function updateTodo(id, title, isCompleted) {
     const url = `https://api.airtable.com/v0/${
       import.meta.env.VITE_AIRTABLE_BASE_ID
@@ -225,6 +228,7 @@ function TodoContainer({ tableName }) {
       console.log(error.message);
     }
   }
+
   //Remove a todo
   async function removeTodo(id) {
     const url = `https://api.airtable.com/v0/${

@@ -8,21 +8,13 @@ function Navigation({ theme, toggleTheme }) {
     <nav className={styles.navContainer}>
       <NavLink
         to="/home"
-        className={({ isActive }) =>
-          isActive
-            ? `${styles.navItem} ${styles.activeNavItem}`
-            : styles.navItem
-        }
+        className={({ isActive }) => isActive ? `${styles.navItem} ${styles.activeNavItem}`: styles.navItem }
       >
         Home
       </NavLink>
       <NavLink
         to="/todo"
-        className={({ isActive }) =>
-          isActive
-            ? `${styles.navItem} ${styles.activeNavItem}`
-            : styles.navItem
-        }
+        className={({ isActive }) => isActive ? `${styles.navItem} ${styles.activeNavItem}`: styles.navItem }
       >
         Todo List
       </NavLink>

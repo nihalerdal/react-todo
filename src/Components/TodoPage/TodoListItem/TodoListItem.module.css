@@ -96,5 +96,8 @@
 }
 
 @media (max-width: 480px) {
- 
+ .listItem{
+  min-height: 20px;
+  padding: 7px;
+ }
 }

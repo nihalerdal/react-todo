@@ -9,6 +9,7 @@ function TodoList({ todoList, onRemoveTodo, onEditTodo }) {
 
   const itemsPerPage = 5;
 
+  //calculate the index of the items per pages to determine which items to display on each page
    const lastItemPosition = itemsPerPage * currentPage;
    const firstItemPosition = lastItemPosition - itemsPerPage;
    const currentTodos = todoList.slice(firstItemPosition, lastItemPosition);

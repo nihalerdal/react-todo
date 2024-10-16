@@ -10,37 +10,35 @@ function TodoListItem({ title, onRemoveTodo, id, createdTime, onEditTodo , isCom
   const [isEditing, setIsEditing] = useState(false);
   const [updatedTodoTitle, setUpdatedTodoTitle] = useState(title || "");
 
-
   const handleTitleChange = (event) => {
-     const newTodoTitle = event.target.value;
-     setUpdatedTodoTitle(newTodoTitle);
+    const newTodoTitle = event.target.value;
+    setUpdatedTodoTitle(newTodoTitle);
   };
 
-const handleCheckBoxChecked = (event) => {
-  const checked = event.target.checked;
-  setIsChecked(checked);
-};
+  const handleCheckBoxChecked = (event) => {
+    const checked = event.target.checked;
+    setIsChecked(checked);
+  };
 
-const handleEditMode = () => {
-  setIsEditing(!isEditing);
-};
+  const handleEditMode = () => {
+    setIsEditing(!isEditing);
+  };
 
-const saveChanges = () => {
-  onEditTodo(id, updatedTodoTitle, isChecked);
-  handleEditMode();
-};
-
+  const saveChanges = () => {
+    onEditTodo(id, updatedTodoTitle, isChecked);
+    handleEditMode();
+  };
 
   return (
     <li className={styles.listItem}>
       <div className={styles.textContainer}>
-          <input
-            className={styles.checkBox}
-            type="checkbox"
-            checked={isChecked}
-            onChange={handleCheckBoxChecked}
-            disabled = {!isEditing}
-          />
+        <input
+          className={styles.checkBox}
+          type="checkbox"
+          checked={isChecked}
+          onChange={handleCheckBoxChecked}
+          disabled={!isEditing}
+        />
         <div className={styles.texts}>
           {isEditing ? (
             <input

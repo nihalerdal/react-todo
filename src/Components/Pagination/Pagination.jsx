@@ -3,9 +3,11 @@ import styles from "./Pagination.module.css";
 
 function Pagination({ onPageChange, currentPage, todoList, itemsPerPage }) {
 
+  //helper to calculate total pages  
   const totalItems = todoList.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
+  //Next and Previous buttons implementation
   const handleNextClick = () => {
     if (currentPage < totalPages) {
       onPageChange(currentPage + 1);
