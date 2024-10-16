@@ -1,0 +1,11 @@
+.themeButton {
+    display: flex;
+    padding: 7px;
+    justify-content: center;
+    align-items: center;
+    /* margin-right: 0; */
+    margin-left: 55px;
+    border: 2px solid #676666;
+    border-radius: 10px;
+    cursor: pointer;
+}

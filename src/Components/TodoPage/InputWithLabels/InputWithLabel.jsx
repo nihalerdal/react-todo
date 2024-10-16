@@ -5,15 +5,13 @@ import PropTypes from "prop-types";
 function InputWithLabel({ children, todoTitle, handleTitleChange }) {
   const inputRef = React.useRef();
 
+  //focus when you click on input field
   React.useEffect(() => {
     inputRef.current.focus();
   }, []);
 
   return (
     <>
-      {/* <label className={styles.titleLabel} htmlFor="todoTitle">
-        {children}
-      </label> */}
       <input
         className={styles.inputBox}
         ref={inputRef}

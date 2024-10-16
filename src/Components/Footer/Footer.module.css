@@ -1,0 +1,41 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  letter-spacing: 1px;
+  width: 100%;
+  margin-bottom: 1%;
+  padding-right: 2%;
+  position: relative;
+  z-index: 1;
+}
+
+.copyRight {
+  margin-left: 2%;
+  color: #6f7083;
+}
+
+[data-theme="dark"] .copyRight {
+  color: whitesmoke;
+}
+
+.gitHubLogo {
+  margin-right: 5%;
+  height: 30px;
+  width: auto;
+  fill: #7984e6;
+}
+
+[data-theme="dark"] .gitHubLogo {
+  fill: whitesmoke;
+}
+
+@media (max-width: 480px) {
+  .copyRight {
+    font-size: x-small;
+  }
+
+  .gitHubLogo {
+    height: 15px;
+  }
+}

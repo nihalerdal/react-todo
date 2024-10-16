@@ -1,0 +1,46 @@
+.previousButton {
+  border-radius: 8px;
+  border-color: transparent;
+  border: 0;
+  max-width: 120px;
+  background-color: #7984e6;
+  cursor: pointer;
+  padding: 10px;
+  margin-right: 5px;
+  width: auto;
+  font-size: smaller;
+  font-weight: bold;
+  color: whitesmoke;
+}
+
+.nextButton {
+  text-align: center;
+  border-radius: 8px;
+  border-color: transparent;
+  border: 0;
+  max-width: 120px;
+  background-color: #7984e6;
+  cursor: pointer;
+  padding: 10px 30px;
+  margin-left: 5px;
+  font-weight: bold;
+  color: whitesmoke;
+}
+
+.pageTitle {
+  color: #676666;
+}
+
+[data-theme="dark"] .pageTitle {
+  color : whitesmoke
+}
+
+@media (max-width: 480px) {
+  .nextButton {
+    padding: 6px;
+  }
+
+  .previousButton {
+    padding: 6px;
+  }
+}
